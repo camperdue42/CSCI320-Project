@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+    <h1>
+        Users
+    </h1>
+	
+    {% for users in usertable %}
+    {{users.u_uid}}, {{users.u_name}}<br>
+    {% endfor %}
+
+</html>
