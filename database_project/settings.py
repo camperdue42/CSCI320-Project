@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'database_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'p320_16',
+        'USER': 'p320_16',
+        'PASSWORD': 'aekooh7eeheequ0Ees7a',
+        'HOST': 'reddwarf.cs.rit.edu',
+        'PORT': '5432',
     }
 }
 
