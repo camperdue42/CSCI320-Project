@@ -30,3 +30,6 @@ def query(request):
         context = {'extra_stuff':'insert help text here'}
         return return_home(request, context)
     
+    else:
+        context = {'extra_stuff':'invalid command'}
+        return return_home(request, context)    
