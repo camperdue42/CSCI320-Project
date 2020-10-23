@@ -4,13 +4,15 @@
         Welcome to the recipe database!
     </h1>
 
-    <form action='query' method='post'>
+    <form action='.' method='post'>
 
         {% csrf_token %}
 
         <label for="input">Please enter a database query (or help for help).</label><br>
         <input type="text" id="input" name="input">
         <input type="submit" value="Submit"> <br>
+
+        {{extra_stuff}}
 
     </form>
 </html>

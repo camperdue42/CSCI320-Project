@@ -1,9 +1,9 @@
 from django.urls import path
 
-from database_application.views import index, query
+from database_application.views import index, query, users
 
 
 urlpatterns = [
     path('', index, name='index'),
-    path('query', query, name='query'),
+    path('users', users, name='users')
 ]
