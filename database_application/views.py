@@ -7,39 +7,65 @@ from database_application.models import User, Utensil
 #reference: https://docs.djangoproject.com/en/3.1/topics/db/queries/
 
 def index(request):
+    print("hello")
     context = {}
     return return_home(request, context)
 
 
 def user_table(request):
     usertable = User.objects.all()
+    users_string = ""
+    for user in usertable:
+        users_string + str(user.Name)
+        users_string + str(user.UID)
+        users_string + '\n'
     template = loader.get_template("database_application/table.html")
-    context={'usertable':usertable,}
+    context={'usertable':users_string,}
     return HttpResponse(template.render(context, request))
 
 
 def return_home(request, context):
+    """Renders the home page and returns it with a given context, doesn't really do anything on it's own but
+    prevents having to redo everything every time"""
     template = loader.get_template("database_application/home.html")
     return HttpResponse(template.render(context, request))
 
 
 def add_to_database(array):
+    """Function used for creation of new models and adding them to the database, mainly a
+    helper function for the query command altough I guess it could technically be used elsewhere"""
     if array[1].casefold() == "Utensil".casefold():
         utensil = Utensil(name=array[2:])
         utensil.save()
+    
+    if array[1].casefold() == "User":
+        user = User(name=array[2:])
+        user.save()
 
 
 def query(request):
-    query = request.POST.get('input', ' ')
+    """Processes the user's query, figures out various different things, adding to database,
+    modifying database, and displaying users information. Tasks generally delegated out to different
+    functions"""
+    query = request.POST.get('input', None)
+    context = {}
+    if query == None:
+        return return_home(request, {'extra_stuff':' '})
     query_as_array = query.split(' ')
-    if query_as_array[0] == "users":
+    if query_as_array[0].casefold() == "users".casefold():
         return user_table(request)
+
     elif query_as_array[0].casefold() == "Help".casefold():
         context = {'extra_stuff':'insert help text here'}
         return return_home(request, context)
+
     elif query_as_array[0].casefold() == "Add".casefold():
         context = {'extra_stuff':' '}
+        add_to_database(query_as_array)
         return return_home(request, context)
+
     else:
         context = {'extra_stuff':'Invalid Command!'}
         return return_home(request, context)    
+
+
