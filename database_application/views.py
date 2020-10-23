@@ -66,6 +66,6 @@ def query(request):
 
     else:
         context = {'extra_stuff':'Invalid Command!'}
-        return redirect(index)    
+        return redirect('/database/')    
 
 
