@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import Context, loader
 
@@ -38,7 +38,7 @@ def add_to_database(array):
         utensil = Utensil(name=array[2:])
         utensil.save()
     
-    if array[1].casefold() == "User":
+    if array[1].casefold() == "User".casefold():
         user = User(name=array[2:])
         user.save()
 
@@ -50,22 +50,22 @@ def query(request):
     query = request.POST.get('input', None)
     context = {}
     if query == None:
-        return return_home(request, {'extra_stuff':' '})
+        return redirect('/database/')
     query_as_array = query.split(' ')
     if query_as_array[0].casefold() == "users".casefold():
         return user_table(request)
 
     elif query_as_array[0].casefold() == "Help".casefold():
         context = {'extra_stuff':'insert help text here'}
-        return return_home(request, context)
+        return redirect('/database/')
 
     elif query_as_array[0].casefold() == "Add".casefold():
-        context = {'extra_stuff':' '}
+        context = {'extra_stuff':'Adding to database...'}
         add_to_database(query_as_array)
-        return return_home(request, context)
+        return redirect('/database/')
 
     else:
         context = {'extra_stuff':'Invalid Command!'}
-        return return_home(request, context)    
+        return redirect(index)    
 
 
