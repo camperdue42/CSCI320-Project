@@ -7,7 +7,6 @@ from database_application.models import User, Utensil
 #reference: https://docs.djangoproject.com/en/3.1/topics/db/queries/
 
 def index(request):
-    print("hello")
     context = {}
     return return_home(request, context)
 
@@ -31,6 +30,11 @@ def return_home(request, context):
     return HttpResponse(template.render(context, request))
 
 
+def return_result(request, context):
+    template = loader.get_template("database_application/query_result.html")
+    return HttpResponse(template.render(context, request))
+
+
 def add_to_database(array):
     """Function used for creation of new models and adding them to the database, mainly a
     helper function for the query command altough I guess it could technically be used elsewhere"""
@@ -47,25 +51,19 @@ def query(request):
     """Processes the user's query, figures out various different things, adding to database,
     modifying database, and displaying users information. Tasks generally delegated out to different
     functions"""
-    query = request.POST.get('input', None)
-    context = {}
-    if query == None:
-        return redirect('/database/')
-    query_as_array = query.split(' ')
+    query = request.POST.get('input')
+    query_as_array = query.split()
     if query_as_array[0].casefold() == "users".casefold():
         return user_table(request)
-
     elif query_as_array[0].casefold() == "Help".casefold():
         context = {'extra_stuff':'insert help text here'}
-        return redirect('/database/')
-
+        return return_result(request, context)
     elif query_as_array[0].casefold() == "Add".casefold():
         context = {'extra_stuff':'Adding to database...'}
         add_to_database(query_as_array)
-        return redirect('/database/')
-
+        return return_result(request, context)
     else:
         context = {'extra_stuff':'Invalid Command!'}
-        return redirect('/database/')    
+        return return_result(request, context)
 
 
