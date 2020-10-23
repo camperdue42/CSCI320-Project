@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import Context, loader
 
-from database_application.models import User
+from database_application.models import User, Utensil
+
+#reference: https://docs.djangoproject.com/en/3.1/topics/db/queries/
 
 def index(request):
     context = {}
@@ -23,7 +25,8 @@ def return_home(request, context):
 
 def add_to_database(array):
     if array[1].casefold() == "Utensil".casefold():
-        Utensil.objects.create(UtensilName = " ".join(array[2:]))
+        utensil = Utensil(name=array[2:])
+        utensil.save()
 
 
 def query(request):
