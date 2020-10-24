@@ -15,13 +15,17 @@ def index(request):
         return query(request)
 
 
-def users(request):
-    return return_table(request, {})
+def users(request): #this is a bigtime todo but i cba right now
     usertable = User.objects.all()
     users_string = ""
-    for user in usertable:
-        users_string + str(user.Name)
-        users_string + str(user.UID)
-        users_string + '\n'
-    context = {'title':'Users','usertable':usertable }
+    context = {'title':'Users','table':usertable }
     return return_table(request, context)
+
+
+def utensils(request):
+    utensiltable = Utensil.objects.all()
+    utensils_string = ""
+    for utensil in utensiltable:
+        utensils_string += utensil.UtensilName + '\n'
+    return return_table(request, {'title':'Utensils', 'table':utensils_string})
+

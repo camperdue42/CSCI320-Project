@@ -12,6 +12,8 @@ def query(request):
     query_as_array = query.split()
     if query_as_array[0].casefold() == "users".casefold():
         return redirect('/database/users')
+    elif query_as_array[0].casefold() == "Utensils".casefold():
+        return redirect('/database/utensils')
     elif query_as_array[0].casefold() == "Help".casefold():
         context = {'extra_stuff':'insert help text here'}
         return return_home(request, context)
