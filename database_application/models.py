@@ -8,7 +8,8 @@ from django.contrib.postgres.fields import HStoreField
 # Create your models here.
 class Utensil(models.Model):
 	UtensilName = models.CharField(max_length=100, primary_key=True)
-
+	def __str__(self):
+		return self.UtensilName
 class StorageLocation(models.Model):
 	LocationID = models.PositiveIntegerField(primary_key=True)
 	LocationType = models.BooleanField()
@@ -26,6 +27,8 @@ class Recipe(models.Model):
 	Users = models.ManyToManyField(User, through='Makes')
 	Utensils = models.ManyToManyField(Utensil)
 	#PreviouslyMade is derived from DatesMade relationship attribute
+	def __str__(self):
+		return self.RecipeName
 
 class Makes(models.Model):
 	User = models.ForeignKey(User, on_delete=models.CASCADE)

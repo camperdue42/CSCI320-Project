@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404,  HttpResponseRedirect
 from django.template import Context, loader
 
-from database_application.models import User, Utensil
+from database_application.models import User, Utensil, Recipe
 from database_application.views_helper import *
 
 #reference: https://docs.djangoproject.com/en/3.1/topics/db/queries/
@@ -29,3 +29,11 @@ def utensils(request):
         utensils_string += utensil.UtensilName + '\n'
     return return_table(request, {'title':'Utensils', 'table':utensils_string})
 
+
+def recipe(request):
+    recipetable = Recipe.objects.all()
+    recipes_string = ""
+    recipes_string = "Recipe Name  Prep Time  Price\n"
+    for recipe in recipetable:
+        recipes_string += recipe.RecipeName + " " + str(recipe.PreparationTime) + " " + str(recipe.Price) + "\n"
+    return return_table(request, {'title':"Recipes", 'table':recipes_string})
