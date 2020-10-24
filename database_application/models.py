@@ -17,7 +17,6 @@ class StorageLocation(models.Model):
 class User(models.Model):
 	UID = models.PositiveIntegerField(primary_key=True, default=0) #primary_key=True implies null=False and unique=True
 	Name = models.CharField(max_length=100)
-	StorageLocations = models.ForeignKey(StorageLocation, on_delete=models.CASCADE, null=True) #not too sure about this one
 
 class Recipe(models.Model):
 	RecipeName = models.CharField(max_length=100, primary_key=True)

@@ -19,7 +19,7 @@ def users(request): #this is a bigtime todo but i cba right now
     usertable = User.objects.all()
     users_string = ""
     for user in usertable:
-        users_string += user.UID + user.Name + "\n" 
+        users_string += str(user.UID) + " " + user.Name + "\n" 
     return return_table(request, {'title':"Users", 'table':users_string})
 
 
