@@ -18,8 +18,9 @@ def index(request):
 def users(request): #this is a bigtime todo but i cba right now
     usertable = User.objects.all()
     users_string = ""
-    context = {'title':'Users','table':usertable }
-    return return_table(request, context)
+    for user in usertable:
+        users_string += user.UID + user.Name + "\n" 
+    return return_table(request, {'title':"Users", 'table':users_string})
 
 
 def utensils(request):
