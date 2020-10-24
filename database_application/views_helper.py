@@ -16,6 +16,8 @@ def query(request):
         return redirect('/database/utensils')
     elif query_as_array[0].casefold() == "Recipes".casefold():
         return redirect('/database/recipe')
+    elif query_as_array[0].casefold() == "Ingredients".casefold():
+        return redirect('/database/ingredients')
     elif query_as_array[0].casefold() == "Help".casefold():
         context = {'extra_stuff':'insert help text here'}
         return return_home(request, context)

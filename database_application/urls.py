@@ -1,6 +1,6 @@
 from django.urls import path
 
-from database_application.views import index, query, users, utensils, recipe
+from database_application.views import index, query, users, utensils, recipe, ingredients
 
 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path('users', users, name='users'),
     path('utensils', utensils, name='utensils'),
     path('recipe', recipe, name='recipe'),
+    path('ingredients', ingredients, name='ingredients'),
 ]

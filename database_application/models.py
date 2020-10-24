@@ -13,6 +13,8 @@ class Utensil(models.Model):
 class StorageLocation(models.Model):
 	LocationID = models.PositiveIntegerField(primary_key=True)
 	LocationType = models.BooleanField()
+	def __str__(self):
+		return str(self.LocationID)
 
 class User(models.Model):
 	UID = models.PositiveIntegerField(primary_key=True, default=0) #primary_key=True implies null=False and unique=True
