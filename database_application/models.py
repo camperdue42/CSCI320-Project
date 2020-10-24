@@ -35,13 +35,15 @@ class Makes(models.Model):
 	User = models.ForeignKey(User, on_delete=models.CASCADE)
 	Recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 	DatesMade = ArrayField(
-		models.DateField(auto_now_add=False, auto_now=False) #dates will not be automatically added on creation or update. Manually add data
+	models.DateField(auto_now_add=False, auto_now=False) #dates will not be automatically added on creation or update. Manually add data
 	)
 
 class Ingredient(models.Model):
 	IngredientName = models.CharField(max_length=100, primary_key=True)
 	AmountLeft = models.PositiveIntegerField()
 	StorageLocations = models.ForeignKey(StorageLocation, on_delete=models.CASCADE) #not too sure about this one
+	def __str__(self):
+		return self.IngredientName
 
 class Step(models.Model):
 	StepNumber = models.PositiveIntegerField(primary_key=True)
